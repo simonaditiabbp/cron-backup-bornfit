@@ -83,7 +83,7 @@ func upsertRecords[T any](conn *BackupConnection, data []T, tableName string) (n
 }
 
 // Helper to get ID from struct using type assertion
-func getID(record interface{}) int {
+func getID(record interface{}) interface{} {
 	switch v := record.(type) {
 	case model.User:
 		return v.ID
@@ -122,6 +122,8 @@ func getID(record interface{}) int {
 	case model.Transaction:
 		return v.ID
 	case model.AuditLog:
+		return v.ID
+	case model.PrismaMigrations:
 		return v.ID
 	default:
 		return 0
@@ -203,6 +205,10 @@ func (conn *BackupConnection) UpsertTransactions(data []model.Transaction) (newC
 
 func (conn *BackupConnection) UpsertAuditLogs(data []model.AuditLog) (newCount, updateCount int, err error) {
 	return upsertRecords(conn, data, "audit_log")
+}
+
+func (conn *BackupConnection) UpsertPrismaMigrations(data []model.PrismaMigrations) (newCount, updateCount int, err error) {
+	return upsertRecords(conn, data, "_prisma_migrations")
 }
 
 // GetExistingRecordsByTable retrieves existing records from backup DB by their IDs
@@ -289,6 +295,10 @@ func (conn *BackupConnection) GetExistingRecordsByTable(tableName string, data i
 		for _, r := range v {
 			ids = append(ids, r.ID)
 		}
+	case []model.PrismaMigrations:
+		// PrismaMigrations uses string UUID as ID, cannot append to []int slice
+		// Skip extraction and return empty map - upsertRecords will handle existence check per record
+		return existingMap, nil
 	default:
 		return existingMap, nil
 	}

@@ -139,6 +139,8 @@ func (uc *UsecaseConnection) IncrementalBackup() error {
 			count = len(v)
 		case []model.AuditLog:
 			count = len(v)
+		case []model.PrismaMigrations:
+			count = len(v)
 		}
 
 		if count == 0 {
@@ -378,6 +380,10 @@ func (uc *UsecaseConnection) IncrementalBackup() error {
 					newRecords = append(newRecords, record)
 				}
 			}
+		case []model.PrismaMigrations:
+			for _, record := range v {
+				newRecords = append(newRecords, record)
+			}
 		}
 
 		// Upsert data and get new/update counts
@@ -564,6 +570,13 @@ func (uc *UsecaseConnection) IncrementalBackup() error {
 			func(t time.Time) (interface{}, error) { return uc.repo_prod.GetAuditLogsModifiedAfter(t) },
 			func(d interface{}) (int, int, error) { return uc.repo_backup.UpsertAuditLogs(d.([]model.AuditLog)) },
 		},
+		{
+			"_prisma_migrations",
+			func(t time.Time) (interface{}, error) { return uc.repo_prod.GetPrismaMigrationsModifiedAfter(t) },
+			func(d interface{}) (int, int, error) {
+				return uc.repo_backup.UpsertPrismaMigrations(d.([]model.PrismaMigrations))
+			},
+		},
 	}
 
 	// Process each table
@@ -658,6 +671,8 @@ func (uc *UsecaseConnection) IncrementalBackup() error {
 			backupLog.TransactionChanges = &changesJSON
 		case "audit_log":
 			backupLog.AuditLogChanges = &changesJSON
+		case "_prisma_migrations":
+			backupLog.PrismaMigrationsChanges = &changesJSON
 		}
 	}
 

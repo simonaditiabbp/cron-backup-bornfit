@@ -28,6 +28,7 @@ type ProdRepository interface {
 	GetMembershipTransfers() ([]model.MembershipTransfer, error)
 	GetTransactions() ([]model.Transaction, error)
 	GetAuditLogs() ([]model.AuditLog, error)
+	GetPrismaMigrations() ([]model.PrismaMigrations, error)
 
 	// Get data modified after specific time (for incremental backup)
 	GetUsersModifiedAfter(lastBackup time.Time) ([]model.User, error)
@@ -49,6 +50,7 @@ type ProdRepository interface {
 	GetMembershipTransfersModifiedAfter(lastBackup time.Time) ([]model.MembershipTransfer, error)
 	GetTransactionsModifiedAfter(lastBackup time.Time) ([]model.Transaction, error)
 	GetAuditLogsModifiedAfter(lastBackup time.Time) ([]model.AuditLog, error)
+	GetPrismaMigrationsModifiedAfter(lastBackup time.Time) ([]model.PrismaMigrations, error)
 }
 
 type ProdConnection struct {
@@ -78,6 +80,7 @@ type BackupRepository interface {
 	SaveMembershipTransfers(data []model.MembershipTransfer) error
 	SaveTransactions(data []model.Transaction) error
 	SaveAuditLogs(data []model.AuditLog) error
+	SavePrismaMigrations(data []model.PrismaMigrations) error
 
 	// Incremental backup methods (upsert)
 	UpsertUsers(data []model.User) (newCount, updateCount int, err error)
@@ -99,6 +102,7 @@ type BackupRepository interface {
 	UpsertMembershipTransfers(data []model.MembershipTransfer) (newCount, updateCount int, err error)
 	UpsertTransactions(data []model.Transaction) (newCount, updateCount int, err error)
 	UpsertAuditLogs(data []model.AuditLog) (newCount, updateCount int, err error)
+	UpsertPrismaMigrations(data []model.PrismaMigrations) (newCount, updateCount int, err error)
 
 	// Backup metadata tracking
 	GetLastBackupTime(tableName string) (time.Time, error)

@@ -124,3 +124,9 @@ func (conn *ProdConnection) GetAuditLogs() ([]model.AuditLog, error) {
 	err := conn.db_prod.Unscoped().Find(&data).Error
 	return data, err
 }
+
+func (conn *ProdConnection) GetPrismaMigrations() ([]model.PrismaMigrations, error) {
+	var data []model.PrismaMigrations
+	err := conn.db_prod.Table("_prisma_migrations").Find(&data).Error
+	return data, err
+}

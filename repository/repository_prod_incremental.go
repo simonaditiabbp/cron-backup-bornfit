@@ -120,3 +120,9 @@ func (conn *ProdConnection) GetAuditLogsModifiedAfter(lastBackup time.Time) ([]m
 	err := conn.db_prod.Where("timestamp > ?", lastBackup).Find(&data).Error
 	return data, err
 }
+
+func (conn *ProdConnection) GetPrismaMigrationsModifiedAfter(lastBackup time.Time) ([]model.PrismaMigrations, error) {
+	var data []model.PrismaMigrations
+	err := conn.db_prod.Table("_prisma_migrations").Find(&data).Error
+	return data, err
+}

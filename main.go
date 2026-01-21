@@ -35,8 +35,7 @@ func main() {
 	// Get cron schedule from environment
 	cronSchedule := os.Getenv("CRON_SCHEDULE")
 	if cronSchedule == "" {
-		// cronSchedule = "0 0 0,12 * * *" // Default: every day at 00:00 and 12:00
-		cronSchedule = "*/2 * * * *" // Testing: every 2 minutes
+		cronSchedule = "0 0 0,12 * * *" // Default: every day at 00:00 and 12:00
 	}
 
 	fmt.Printf("Backup Mode: %s\n", backupMode)

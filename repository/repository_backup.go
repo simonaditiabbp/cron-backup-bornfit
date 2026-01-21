@@ -40,6 +40,7 @@ func (conn *BackupConnection) InitializeAllTables() error {
 		&model.AuditLog{},
 		&model.BackupMetadata{},
 		&model.BackupLog{},
+		&model.PrismaMigrations{},
 	).Error
 
 	if err != nil {
@@ -72,6 +73,7 @@ func (conn *BackupConnection) TruncateAllTables() error {
 		"membership_plan_schedule",
 		"membership_plan",
 		"user",
+		"_prisma_migrations",
 	}
 
 	for _, table := range tables {
@@ -498,6 +500,28 @@ func (conn *BackupConnection) SaveAuditLogs(data []model.AuditLog) error {
 		for _, record := range batch {
 			if err := conn.db_backup.Create(&record).Error; err != nil {
 				return fmt.Errorf("failed to save audit_log: %v", err)
+			}
+		}
+	}
+	return nil
+}
+
+func (conn *BackupConnection) SavePrismaMigrations(data []model.PrismaMigrations) error {
+	if len(data) == 0 {
+		return nil
+	}
+
+	batchSize := 500
+	for i := 0; i < len(data); i += batchSize {
+		end := i + batchSize
+		if end > len(data) {
+			end = len(data)
+		}
+		batch := data[i:end]
+
+		for _, record := range batch {
+			if err := conn.db_backup.Create(&record).Error; err != nil {
+				return fmt.Errorf("failed to save _prisma_migrations: %v", err)
 			}
 		}
 	}

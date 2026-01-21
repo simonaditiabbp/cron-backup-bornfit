@@ -287,6 +287,17 @@ func (uc *UsecaseConnection) InitialBackup() error {
 		return fmt.Errorf("failed to save audit logs: %v", err)
 	}
 
+	// Step 21: Backup Prisma Migrations
+	fmt.Println("Backing up prisma migrations...")
+	prismaMigrations, err := uc.repo_prod.GetPrismaMigrations()
+	if err != nil {
+		return fmt.Errorf("failed to get prisma migrations: %v", err)
+	}
+	fmt.Printf("Found %d prisma migrations\n", len(prismaMigrations))
+	if err := uc.repo_backup.SavePrismaMigrations(prismaMigrations); err != nil {
+		return fmt.Errorf("failed to save prisma migrations: %v", err)
+	}
+
 	// Save metadata for all tables
 	fmt.Println("\nSaving backup metadata...")
 	backupTime := time.Now()
@@ -310,6 +321,7 @@ func (uc *UsecaseConnection) InitialBackup() error {
 		"membership_transfer":      len(transfers),
 		"transaction":              len(transactions),
 		"audit_log":                len(auditLogs),
+		"_prisma_migrations":       len(prismaMigrations),
 	}
 
 	for tableName, count := range tables {
@@ -338,7 +350,8 @@ func (uc *UsecaseConnection) InitialBackup() error {
 		len(checkinLogs) + len(checkins) + len(ptPlans) + len(ptSessions) +
 		len(ptBookings) + len(checkinPT) + len(eventPlans) + len(classes) +
 		len(classPurchases) + len(classAttendances) + len(staffSchedules) +
-		len(freezes) + len(transfers) + len(transactions) + len(auditLogs)
+		len(freezes) + len(transfers) + len(transactions) + len(auditLogs) +
+		len(prismaMigrations)
 
 	endTime := time.Now()
 	duration := endTime.Sub(startTime).Seconds()
@@ -360,7 +373,7 @@ func (uc *UsecaseConnection) InitialBackup() error {
 		TotalNew:       totalRecs,
 		TotalUpdated:   0,
 		TotalRecords:   totalRecs,
-		TablesAffected: 19,
+		TablesAffected: 20,
 		LogDetails:     &logBuilder,
 	}
 

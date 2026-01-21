@@ -514,10 +514,26 @@ type BackupLog struct {
 	MembershipTransferChanges     *string `gorm:"column:membership_transfer_changes;type:jsonb" json:"membership_transfer_changes"`
 	TransactionChanges            *string `gorm:"column:transaction_changes;type:jsonb" json:"transaction_changes"`
 	AuditLogChanges               *string `gorm:"column:audit_log_changes;type:jsonb" json:"audit_log_changes"`
+	PrismaMigrationsChanges       *string `gorm:"column:prisma_migrations_changes;type:jsonb" json:"prisma_migrations_changes"`
 
 	CreatedAt time.Time `gorm:"column:created_at" json:"created_at"`
 }
 
 func (BackupLog) TableName() string {
 	return "backup_logs"
+}
+
+type PrismaMigrations struct {
+	ID                string     `gorm:"column:id;primary_key" json:"id"`
+	Checksum          string     `gorm:"column:checksum" json:"checksum"`
+	FinishedAt        *time.Time `gorm:"column:finished_at" json:"finished_at"`
+	MigrationName     string     `gorm:"column:migration_name" json:"migration_name"`
+	Logs              *string    `gorm:"column:logs" json:"logs"`
+	RolledBackAt      *time.Time `gorm:"column:rolled_back_at" json:"rolled_back_at"`
+	StartedAt         time.Time  `gorm:"column:started_at" json:"started_at"`
+	AppliedStepsCount int        `gorm:"column:applied_steps_count" json:"applied_steps_count"`
+}
+
+func (PrismaMigrations) TableName() string {
+	return "_prisma_migrations"
 }
