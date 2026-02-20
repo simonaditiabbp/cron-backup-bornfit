@@ -11,7 +11,7 @@ type User struct {
 	Password              *string    `gorm:"column:password" json:"password"`
 	Phone                 *string    `gorm:"column:phone" json:"phone"`
 	Role                  string     `gorm:"column:role" json:"role"`
-	DateOfBirth           *time.Time `gorm:"column:date_of_birth" json:"date_of_birth"`
+	DateOfBirth           *time.Time `gorm:"column:date_of_birth;type:timestamp" json:"date_of_birth"`
 	NikPassport           *string    `gorm:"column:nik_passport" json:"nik_passport"`
 	EmergencyContactName  *string    `gorm:"column:emergency_contact_name" json:"emergency_contact_name"`
 	EmergencyContactPhone *string    `gorm:"column:emergency_contact_phone" json:"emergency_contact_phone"`
@@ -20,11 +20,11 @@ type User struct {
 	Latitude              *float64   `gorm:"column:latitude" json:"latitude"`
 	Longitude             *float64   `gorm:"column:longitude" json:"longitude"`
 	IsDeleted             bool       `gorm:"column:is_deleted" json:"is_deleted"`
-	DeletedAt             *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt             *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy             *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt             time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt             time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy             *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt             time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt             time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy             *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -45,17 +45,17 @@ type MembershipPlan struct {
 	ClassAccessType       string     `gorm:"column:class_access_type" json:"class_access_type"`
 	MaxSession            *int       `gorm:"column:max_session" json:"max_session"`
 	AllowUnlimitedSession bool       `gorm:"column:allow_unlimited_session" json:"allow_unlimited_session"`
-	AvailableFrom         *time.Time `gorm:"column:available_from" json:"available_from"`
-	AvailableUntil        *time.Time `gorm:"column:available_until" json:"available_until"`
+	AvailableFrom         *time.Time `gorm:"column:available_from;type:timestamp" json:"available_from"`
+	AvailableUntil        *time.Time `gorm:"column:available_until;type:timestamp" json:"available_until"`
 	QuotaMaxSold          *int       `gorm:"column:quota_max_sold" json:"quota_max_sold"`
 	AlwaysAvailable       bool       `gorm:"column:always_available" json:"always_available"`
 	Level                 int        `gorm:"column:level" json:"level"`
 	IsDeleted             bool       `gorm:"column:is_deleted" json:"is_deleted"`
-	DeletedAt             *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt             *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy             *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt             time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt             time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy             *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt             time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt             time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy             *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -69,11 +69,11 @@ type MembershipPlanSchedule struct {
 	DayOfWeek        string     `gorm:"column:day_of_week" json:"day_of_week"`
 	StartTime        string     `gorm:"column:start_time" json:"start_time"`
 	EndTime          string     `gorm:"column:end_time" json:"end_time"`
-	DeletedAt        *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt        *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy        *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt        time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt        time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy        *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt        time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt        time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy        *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -87,8 +87,8 @@ type Membership struct {
 	MembershipPlanID      int        `gorm:"column:membership_plan_id" json:"membership_plan_id"`
 	ReferralUserMemberID  *int       `gorm:"column:referral_user_member_id" json:"referral_user_member_id"`
 	ReferralUserStaffID   *int       `gorm:"column:referral_user_staff_id" json:"referral_user_staff_id"`
-	StartDate             time.Time  `gorm:"column:start_date" json:"start_date"`
-	EndDate               time.Time  `gorm:"column:end_date" json:"end_date"`
+	StartDate             time.Time  `gorm:"column:start_date;type:timestamp" json:"start_date"`
+	EndDate               time.Time  `gorm:"column:end_date;type:timestamp" json:"end_date"`
 	SalesType             string     `gorm:"column:sales_type" json:"sales_type"`
 	AdditionalFee         *float64   `gorm:"column:additional_fee" json:"additional_fee"`
 	DiscountType          *string    `gorm:"column:discount_type" json:"discount_type"`
@@ -102,12 +102,12 @@ type Membership struct {
 	IsActive              bool       `gorm:"column:is_active" json:"is_active"`
 	IsTransferred         bool       `gorm:"column:is_transferred" json:"is_transferred"`
 	PreviousMembershipID  *int       `gorm:"column:previous_membership_id" json:"previous_membership_id"`
-	RenewalReminderSentAt *time.Time `gorm:"column:renewal_reminder_sent_at" json:"renewal_reminder_sent_at"`
-	DeletedAt             *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	RenewalReminderSentAt *time.Time `gorm:"column:renewal_reminder_sent_at;type:timestamp" json:"renewal_reminder_sent_at"`
+	DeletedAt             *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy             *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt             time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt             time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy             *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt             time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt             time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy             *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -119,12 +119,12 @@ type MembershipCheckinLog struct {
 	ID           int       `gorm:"column:id;primary_key" json:"id"`
 	UserID       int       `gorm:"column:user_id" json:"user_id"`
 	MembershipID int       `gorm:"column:membership_id" json:"membership_id"`
-	CheckinTime  time.Time `gorm:"column:checkin_time" json:"checkin_time"`
+	CheckinTime  time.Time `gorm:"column:checkin_time;type:timestamp" json:"checkin_time"`
 	Latitude     *float64  `gorm:"column:latitude" json:"latitude"`
 	Longitude    *float64  `gorm:"column:longitude" json:"longitude"`
-	CreatedAt    time.Time `gorm:"column:created_at" json:"created_at"`
+	CreatedAt    time.Time `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy    *string   `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt    time.Time `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt    time.Time `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy    *string   `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -135,10 +135,10 @@ func (MembershipCheckinLog) TableName() string {
 type Checkin struct {
 	ID          int       `gorm:"column:id;primary_key" json:"id"`
 	UserID      int       `gorm:"column:user_id" json:"user_id"`
-	CheckinTime time.Time `gorm:"column:checkin_time" json:"checkin_time"`
+	CheckinTime time.Time `gorm:"column:checkin_time;type:timestamp" json:"checkin_time"`
 	Latitude    *float64  `gorm:"column:latitude" json:"latitude"`
 	Longitude   *float64  `gorm:"column:longitude" json:"longitude"`
-	CreatedAt   time.Time `gorm:"column:created_at" json:"created_at"`
+	CreatedAt   time.Time `gorm:"column:created_at;type:timestamp" json:"created_at"`
 }
 
 func (Checkin) TableName() string {
@@ -149,10 +149,10 @@ type CheckinPTSession struct {
 	ID          int       `gorm:"column:id;primary_key" json:"id"`
 	UserID      int       `gorm:"column:user_id" json:"user_id"`
 	PTSessionID int       `gorm:"column:ptsession_id" json:"ptsession_id"`
-	CheckinTime time.Time `gorm:"column:checkin_time" json:"checkin_time"`
+	CheckinTime time.Time `gorm:"column:checkin_time;type:timestamp" json:"checkin_time"`
 	Latitude    *float64  `gorm:"column:latitude" json:"latitude"`
 	Longitude   *float64  `gorm:"column:longitude" json:"longitude"`
-	CreatedAt   time.Time `gorm:"column:created_at" json:"created_at"`
+	CreatedAt   time.Time `gorm:"column:created_at;type:timestamp" json:"created_at"`
 }
 
 func (CheckinPTSession) TableName() string {
@@ -169,12 +169,12 @@ type PTSessionPlan struct {
 	Price             float64    `gorm:"column:price" json:"price"`
 	MinutesPerSession int        `gorm:"column:minutes_per_session" json:"minutes_per_session"`
 	Description       *string    `gorm:"column:description" json:"description"`
-	CreatedAt         time.Time  `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt         time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	CreatedAt         time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
+	UpdatedAt         time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	CreatedBy         *string    `gorm:"column:created_by" json:"created_by"`
 	UpdatedBy         *string    `gorm:"column:updated_by" json:"updated_by"`
 	IsDeleted         bool       `gorm:"column:is_deleted" json:"is_deleted"`
-	DeletedAt         *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt         *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy         *string    `gorm:"column:deleted_by" json:"deleted_by"`
 }
 
@@ -187,22 +187,22 @@ type PersonalTrainerSession struct {
 	PTSessionPlanID  int        `gorm:"column:pt_session_plan_id" json:"pt_session_plan_id"`
 	UserMemberID     int        `gorm:"column:user_member_id" json:"user_member_id"`
 	UserPTID         int        `gorm:"column:user_pt_id" json:"user_pt_id"`
-	JoinDate         time.Time  `gorm:"column:join_date" json:"join_date"`
-	StartDate        time.Time  `gorm:"column:start_date" json:"start_date"`
-	EndDate          time.Time  `gorm:"column:end_date" json:"end_date"`
+	JoinDate         time.Time  `gorm:"column:join_date;type:timestamp" json:"join_date"`
+	StartDate        time.Time  `gorm:"column:start_date;type:timestamp" json:"start_date"`
+	EndDate          time.Time  `gorm:"column:end_date;type:timestamp" json:"end_date"`
 	Status           string     `gorm:"column:status" json:"status"`
-	CreatedAt        time.Time  `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt        time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	CreatedAt        time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
+	UpdatedAt        time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	CreatedBy        *string    `gorm:"column:created_by" json:"created_by"`
 	UpdatedBy        *string    `gorm:"column:updated_by" json:"updated_by"`
 	IsDeleted        bool       `gorm:"column:is_deleted" json:"is_deleted"`
-	DeletedAt        *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt        *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy        *string    `gorm:"column:deleted_by" json:"deleted_by"`
 	Name             *string    `gorm:"column:name" json:"name"`
 	RemainingSession *int       `gorm:"column:remaining_session" json:"remaining_session"`
 	QrCode           *string    `gorm:"column:qr_code" json:"qr_code"`
-	BookingStart     *time.Time `gorm:"column:booking_start" json:"booking_start"`
-	BookingEnd       *time.Time `gorm:"column:booking_end" json:"booking_end"`
+	BookingStart     *time.Time `gorm:"column:booking_start;type:timestamp" json:"booking_start"`
+	BookingEnd       *time.Time `gorm:"column:booking_end;type:timestamp" json:"booking_end"`
 }
 
 func (PersonalTrainerSession) TableName() string {
@@ -214,14 +214,14 @@ type PTSessionBooking struct {
 	UserMemberID             int        `gorm:"column:user_member_id" json:"user_member_id"`
 	PTSessionPlanID          int        `gorm:"column:pt_session_plan_id" json:"pt_session_plan_id"`
 	PersonalTrainerSessionID int        `gorm:"column:personal_trainer_session_id" json:"personal_trainer_session_id"`
-	BookingTime              time.Time  `gorm:"column:booking_time" json:"booking_time"`
+	BookingTime              time.Time  `gorm:"column:booking_time;type:timestamp" json:"booking_time"`
 	Status                   string     `gorm:"column:status" json:"status"`
-	CreatedAt                time.Time  `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt                time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	CreatedAt                time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
+	UpdatedAt                time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	CreatedBy                *string    `gorm:"column:created_by" json:"created_by"`
 	UpdatedBy                *string    `gorm:"column:updated_by" json:"updated_by"`
 	IsDeleted                bool       `gorm:"column:is_deleted" json:"is_deleted"`
-	DeletedAt                *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt                *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy                *string    `gorm:"column:deleted_by" json:"deleted_by"`
 }
 
@@ -241,11 +241,11 @@ type EventPlan struct {
 	UnlimitedDailySession   bool       `gorm:"column:unlimited_daily_session" json:"unlimited_daily_session"`
 	DailyLimit              int        `gorm:"column:daily_limit" json:"daily_limit"`
 	IsActive                bool       `gorm:"column:is_active" json:"is_active"`
-	DeletedAt               *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt               *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy               *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt               time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt               time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy               *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt               time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt               time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy               *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -258,9 +258,9 @@ type Class struct {
 	EventPlanID         int        `gorm:"column:event_plan_id" json:"event_plan_id"`
 	InstructorID        int        `gorm:"column:instructor_id" json:"instructor_id"`
 	Name                *string    `gorm:"column:name" json:"name"`
-	ClassDate           time.Time  `gorm:"column:class_date" json:"class_date"`
-	StartTime           time.Time  `gorm:"column:start_time" json:"start_time"`
-	EndTime             *time.Time `gorm:"column:end_time" json:"end_time"`
+	ClassDate           time.Time  `gorm:"column:class_date;type:timestamp" json:"class_date"`
+	StartTime           time.Time  `gorm:"column:start_time;type:timestamp" json:"start_time"`
+	EndTime             *time.Time `gorm:"column:end_time;type:timestamp" json:"end_time"`
 	ClassType           string     `gorm:"column:class_type" json:"class_type"`
 	TotalManualCheckin  int        `gorm:"column:total_manual_checkin" json:"total_manual_checkin"`
 	Notes               *string    `gorm:"column:notes" json:"notes"`
@@ -268,14 +268,14 @@ type Class struct {
 	RecurrenceDays      *string    `gorm:"column:recurrence_days" json:"recurrence_days"`
 	RecurrenceStartTime *string    `gorm:"column:recurrence_start_time" json:"recurrence_start_time"`
 	RecurrenceEndTime   *string    `gorm:"column:recurrence_end_time" json:"recurrence_end_time"`
-	ValidFrom           *time.Time `gorm:"column:valid_from" json:"valid_from"`
-	ValidUntil          *time.Time `gorm:"column:valid_until" json:"valid_until"`
+	ValidFrom           *time.Time `gorm:"column:valid_from;type:timestamp" json:"valid_from"`
+	ValidUntil          *time.Time `gorm:"column:valid_until;type:timestamp" json:"valid_until"`
 	ParentClassID       *int       `gorm:"column:parent_class_id" json:"parent_class_id"`
-	DeletedAt           *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt           *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy           *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt           time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt           time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy           *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt           time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt           time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy           *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -287,13 +287,13 @@ type ClassPurchase struct {
 	ID           int        `gorm:"column:id;primary_key" json:"id"`
 	UserID       int        `gorm:"column:user_id" json:"user_id"`
 	ClassID      int        `gorm:"column:class_id" json:"class_id"`
-	PurchaseDate time.Time  `gorm:"column:purchase_date" json:"purchase_date"`
+	PurchaseDate time.Time  `gorm:"column:purchase_date;type:timestamp" json:"purchase_date"`
 	Price        float64    `gorm:"column:price" json:"price"`
-	DeletedAt    *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt    *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy    *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt    time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt    time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy    *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt    time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt    time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy    *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -305,13 +305,13 @@ type ClassAttendance struct {
 	ID          int        `gorm:"column:id;primary_key" json:"id"`
 	ClassID     int        `gorm:"column:class_id" json:"class_id"`
 	MemberID    int        `gorm:"column:member_id" json:"member_id"`
-	CheckedInAt *time.Time `gorm:"column:checked_in_at" json:"checked_in_at"`
+	CheckedInAt *time.Time `gorm:"column:checked_in_at;type:timestamp" json:"checked_in_at"`
 	Status      string     `gorm:"column:status" json:"status"`
-	DeletedAt   *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt   *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy   *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt   time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt   time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy   *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt   time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt   time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy   *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -322,9 +322,9 @@ func (ClassAttendance) TableName() string {
 type StaffSchedule struct {
 	ID                 int        `gorm:"column:id;primary_key" json:"id"`
 	StaffID            int        `gorm:"column:staff_id" json:"staff_id"`
-	ScheduleDate       time.Time  `gorm:"column:schedule_date" json:"schedule_date"`
-	StartTime          time.Time  `gorm:"column:start_time" json:"start_time"`
-	EndTime            time.Time  `gorm:"column:end_time" json:"end_time"`
+	ScheduleDate       time.Time  `gorm:"column:schedule_date;type:timestamp" json:"schedule_date"`
+	StartTime          time.Time  `gorm:"column:start_time;type:timestamp" json:"start_time"`
+	EndTime            time.Time  `gorm:"column:end_time;type:timestamp" json:"end_time"`
 	ScheduleType       string     `gorm:"column:schedule_type" json:"schedule_type"`
 	RelatedClassID     *int       `gorm:"column:related_class_id" json:"related_class_id"`
 	RelatedPTSessionID *int       `gorm:"column:related_pt_session_id" json:"related_pt_session_id"`
@@ -333,11 +333,11 @@ type StaffSchedule struct {
 	Status             string     `gorm:"column:status" json:"status"`
 	IsRecurring        bool       `gorm:"column:is_recurring" json:"is_recurring"`
 	RecurrencePattern  *string    `gorm:"column:recurrence_pattern" json:"recurrence_pattern"`
-	DeletedAt          *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt          *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy          *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt          time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt          time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy          *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt          time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt          time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy          *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -348,16 +348,16 @@ func (StaffSchedule) TableName() string {
 type MembershipFreeze struct {
 	ID           int        `gorm:"column:id;primary_key" json:"id"`
 	MembershipID int        `gorm:"column:membership_id" json:"membership_id"`
-	FreezeAt     time.Time  `gorm:"column:freeze_at" json:"freeze_at"`
-	UnfreezeAt   *time.Time `gorm:"column:unfreeze_at" json:"unfreeze_at"`
+	FreezeAt     time.Time  `gorm:"column:freeze_at;type:timestamp" json:"freeze_at"`
+	UnfreezeAt   *time.Time `gorm:"column:unfreeze_at;type:timestamp" json:"unfreeze_at"`
 	Fee          float64    `gorm:"column:fee" json:"fee"`
 	Reason       *string    `gorm:"column:reason" json:"reason"`
 	Status       string     `gorm:"column:status" json:"status"`
-	DeletedAt    *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt    *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy    *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt    time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt    time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy    *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt    time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt    time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy    *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -371,17 +371,17 @@ type MembershipTransfer struct {
 	ToMembershipID   *int       `gorm:"column:to_membership_id" json:"to_membership_id"`
 	FromUserID       int        `gorm:"column:from_user_id" json:"from_user_id"`
 	ToUserID         int        `gorm:"column:to_user_id" json:"to_user_id"`
-	TransferDate     time.Time  `gorm:"column:transfer_date" json:"transfer_date"`
+	TransferDate     time.Time  `gorm:"column:transfer_date;type:timestamp" json:"transfer_date"`
 	Fee              float64    `gorm:"column:fee" json:"fee"`
 	Reason           *string    `gorm:"column:reason" json:"reason"`
 	Status           string     `gorm:"column:status" json:"status"`
 	ApprovedBy       *string    `gorm:"column:approved_by" json:"approved_by"`
-	ApprovedAt       *time.Time `gorm:"column:approved_at" json:"approved_at"`
-	DeletedAt        *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	ApprovedAt       *time.Time `gorm:"column:approved_at;type:timestamp" json:"approved_at"`
+	DeletedAt        *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy        *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt        time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt        time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy        *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt        time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt        time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy        *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -392,7 +392,7 @@ func (MembershipTransfer) TableName() string {
 type Transaction struct {
 	ID               int        `gorm:"column:id;primary_key" json:"id"`
 	InvoiceNumber    string     `gorm:"column:invoice_number" json:"invoice_number"`
-	TransactionDate  time.Time  `gorm:"column:transaction_date" json:"transaction_date"`
+	TransactionDate  time.Time  `gorm:"column:transaction_date;type:timestamp" json:"transaction_date"`
 	UserID           int        `gorm:"column:user_id" json:"user_id"`
 	TransactionType  string     `gorm:"column:transaction_type" json:"transaction_type"`
 	MembershipID     *int       `gorm:"column:membership_id" json:"membership_id"`
@@ -412,19 +412,19 @@ type Transaction struct {
 	PTName           *string    `gorm:"column:pt_name" json:"pt_name"`
 	PaymentMethod    *string    `gorm:"column:payment_method" json:"payment_method"`
 	PaymentStatus    string     `gorm:"column:payment_status" json:"payment_status"`
-	PaymentDate      *time.Time `gorm:"column:payment_date" json:"payment_date"`
+	PaymentDate      *time.Time `gorm:"column:payment_date;type:timestamp" json:"payment_date"`
 	InvoiceSent      bool       `gorm:"column:invoice_sent" json:"invoice_sent"`
-	InvoiceSentAt    *time.Time `gorm:"column:invoice_sent_at" json:"invoice_sent_at"`
+	InvoiceSentAt    *time.Time `gorm:"column:invoice_sent_at;type:timestamp" json:"invoice_sent_at"`
 	AgreementSent    bool       `gorm:"column:agreement_sent" json:"agreement_sent"`
-	AgreementSentAt  *time.Time `gorm:"column:agreement_sent_at" json:"agreement_sent_at"`
+	AgreementSentAt  *time.Time `gorm:"column:agreement_sent_at;type:timestamp" json:"agreement_sent_at"`
 	ProcessedByName  *string    `gorm:"column:processed_by_name" json:"processed_by_name"`
 	ProcessedByEmail *string    `gorm:"column:processed_by_email" json:"processed_by_email"`
 	Notes            *string    `gorm:"column:notes" json:"notes"`
-	DeletedAt        *time.Time `gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt        *time.Time `gorm:"column:deleted_at;type:timestamp" json:"deleted_at"`
 	DeletedBy        *string    `gorm:"column:deleted_by" json:"deleted_by"`
-	CreatedAt        time.Time  `gorm:"column:created_at" json:"created_at"`
+	CreatedAt        time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
 	CreatedBy        *string    `gorm:"column:created_by" json:"created_by"`
-	UpdatedAt        time.Time  `gorm:"column:updated_at" json:"updated_at"`
+	UpdatedAt        time.Time  `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy        *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -434,7 +434,7 @@ func (Transaction) TableName() string {
 
 type AuditLog struct {
 	ID           int        `gorm:"column:id;primary_key" json:"id"`
-	Timestamp    time.Time  `gorm:"column:timestamp" json:"timestamp"`
+	Timestamp    time.Time  `gorm:"column:timestamp;type:timestamp" json:"timestamp"`
 	Action       string     `gorm:"column:action" json:"action"`
 	Entity       string     `gorm:"column:entity" json:"entity"`
 	EntityID     *int       `gorm:"column:entity_id" json:"entity_id"`
@@ -451,8 +451,8 @@ type AuditLog struct {
 	ErrorCode    *string    `gorm:"column:error_code" json:"error_code"`
 	ErrorStack   *string    `gorm:"column:error_stack" json:"error_stack"`
 	ResponseData *string    `gorm:"column:response_data" json:"response_data"`
-	CreatedAt    time.Time  `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt    *time.Time `gorm:"column:updated_at" json:"updated_at"`
+	CreatedAt    time.Time  `gorm:"column:created_at;type:timestamp" json:"created_at"`
+	UpdatedAt    *time.Time `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 	UpdatedBy    *string    `gorm:"column:updated_by" json:"updated_by"`
 }
 
@@ -464,15 +464,15 @@ func (AuditLog) TableName() string {
 type BackupMetadata struct {
 	ID             int       `gorm:"column:id;primary_key" json:"id"`
 	Table          string    `gorm:"column:table_name;unique" json:"table_name"`
-	LastBackupAt   time.Time `gorm:"column:last_backup_at" json:"last_backup_at"`
+	LastBackupAt   time.Time `gorm:"column:last_backup_at;type:timestamp" json:"last_backup_at"`
 	TotalRecords   int       `gorm:"column:total_records" json:"total_records"`
 	NewRecords     int       `gorm:"column:new_records" json:"new_records"`
 	UpdatedRecords int       `gorm:"column:updated_records" json:"updated_records"`
 	BackupType     string    `gorm:"column:backup_type" json:"backup_type"` // initial, incremental
 	Status         string    `gorm:"column:status" json:"status"`           // success, failed
 	ErrorMessage   *string   `gorm:"column:error_message" json:"error_message"`
-	CreatedAt      time.Time `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt      time.Time `gorm:"column:updated_at" json:"updated_at"`
+	CreatedAt      time.Time `gorm:"column:created_at;type:timestamp" json:"created_at"`
+	UpdatedAt      time.Time `gorm:"column:updated_at;type:timestamp" json:"updated_at"`
 }
 
 func (BackupMetadata) TableName() string {
@@ -483,8 +483,8 @@ func (BackupMetadata) TableName() string {
 type BackupLog struct {
 	ID             int       `gorm:"column:id;primary_key;auto_increment" json:"id"`
 	BackupType     string    `gorm:"column:backup_type" json:"backup_type"` // initial, incremental
-	StartTime      time.Time `gorm:"column:start_time" json:"start_time"`
-	EndTime        time.Time `gorm:"column:end_time" json:"end_time"`
+	StartTime      time.Time `gorm:"column:start_time;type:timestamp" json:"start_time"`
+	EndTime        time.Time `gorm:"column:end_time;type:timestamp" json:"end_time"`
 	Duration       float64   `gorm:"column:duration" json:"duration"` // in seconds
 	Status         string    `gorm:"column:status" json:"status"`     // success, failed, partial
 	TotalNew       int       `gorm:"column:total_new" json:"total_new"`
@@ -516,7 +516,7 @@ type BackupLog struct {
 	AuditLogChanges               *string `gorm:"column:audit_log_changes;type:jsonb" json:"audit_log_changes"`
 	PrismaMigrationsChanges       *string `gorm:"column:prisma_migrations_changes;type:jsonb" json:"prisma_migrations_changes"`
 
-	CreatedAt time.Time `gorm:"column:created_at" json:"created_at"`
+	CreatedAt time.Time `gorm:"column:created_at;type:timestamp" json:"created_at"`
 }
 
 func (BackupLog) TableName() string {
@@ -526,11 +526,11 @@ func (BackupLog) TableName() string {
 type PrismaMigrations struct {
 	ID                string     `gorm:"column:id;primary_key" json:"id"`
 	Checksum          string     `gorm:"column:checksum" json:"checksum"`
-	FinishedAt        *time.Time `gorm:"column:finished_at" json:"finished_at"`
+	FinishedAt        *time.Time `gorm:"column:finished_at;type:timestamp" json:"finished_at"`
 	MigrationName     string     `gorm:"column:migration_name" json:"migration_name"`
 	Logs              *string    `gorm:"column:logs" json:"logs"`
-	RolledBackAt      *time.Time `gorm:"column:rolled_back_at" json:"rolled_back_at"`
-	StartedAt         time.Time  `gorm:"column:started_at" json:"started_at"`
+	RolledBackAt      *time.Time `gorm:"column:rolled_back_at;type:timestamp" json:"rolled_back_at"`
+	StartedAt         time.Time  `gorm:"column:started_at;type:timestamp" json:"started_at"`
 	AppliedStepsCount int        `gorm:"column:applied_steps_count" json:"applied_steps_count"`
 }
 

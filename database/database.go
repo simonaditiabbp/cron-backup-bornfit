@@ -45,7 +45,9 @@ func SetupProd() {
 		}
 	}
 
-	DB, err := gorm.Open("postgres", "host="+host+" port="+port+" user="+username+" dbname="+database+"  sslmode=disable password="+password)
+	// DB, err := gorm.Open("postgres", "host="+host+" port="+port+" user="+username+" dbname="+database+"  sslmode=disable password="+password)
+	// Gunakan Asia/Jakarta dengan type timestamp (tanpa tz) di model untuk menghindari double conversion
+	DB, err := gorm.Open("postgres", "host="+host+" port="+port+" user="+username+" dbname="+database+" password="+password+" sslmode=disable TimeZone=Asia/Jakarta")
 	if err != nil {
 		fmt.Println("failed to connect database prod: ", err)
 	}
@@ -84,7 +86,9 @@ func SetupBackup() {
 		}
 	}
 
-	DB, err := gorm.Open("postgres", "host="+host+" port="+port+" user="+username+" dbname="+database+"  sslmode=disable password="+password)
+	// DB, err := gorm.Open("postgres", "host="+host+" port="+port+" user="+username+" dbname="+database+"  sslmode=disable password="+password)
+	// Gunakan Asia/Jakarta dengan type timestamp (tanpa tz) di model untuk menghindari double conversion
+	DB, err := gorm.Open("postgres", "host="+host+" port="+port+" user="+username+" dbname="+database+" password="+password+" sslmode=disable TimeZone=Asia/Jakarta")
 	if err != nil {
 		fmt.Println("failed to connect database backup: ", err)
 	}
